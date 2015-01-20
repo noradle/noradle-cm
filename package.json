@@ -1,16 +1,16 @@
 {
-  "name": "noradle-cm",
-  "version": "0.0.0",
-  "description": "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
-  "main": "download_units.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name" : "noradle-cm",
+  "version" : "0.0.1",
+  "description" : "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
+  "main" : "download_units.js",
+  "scripts" : {
+    "test" : "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kaven276/noradle-cm.git"
+  "repository" : {
+    "type" : "git",
+    "url" : "git://github.com/kaven276/noradle-cm.git"
   },
-  "keywords": [
+  "keywords" : [
     "noradle",
     "CM",
     "VCS",
@@ -20,10 +20,13 @@
     "sqlplus",
     "export"
   ],
-  "author": "kaven276@vip.sina.com",
-  "license": "",
-  "bugs": {
-    "url": "https://github.com/kaven276/noradle-cm/issues"
+  "author" : "kaven276@vip.sina.com",
+  "license" : "",
+  "bugs" : {
+    "url" : "https://github.com/kaven276/noradle-cm/issues"
   },
-  "homepage": "https://github.com/kaven276/noradle-cm"
+  "homepage" : "https://github.com/kaven276/noradle-cm",
+  "dependencies" : {
+    "noradle" : ">=0.10.2"
+  }
 }

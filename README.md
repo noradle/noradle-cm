@@ -1,5 +1,10 @@
   Manage oracle schema object for version control.
 
+  Depend on [noradle](https://github.com/kaven276/noradle) NDBC
+and for [noradle](https://github.com/kaven276/noradle)
+(or any other PL/SQL based)
+app CM(configuration management)/VC(version control) purpuse.
+
 # install
 
 `npm -g install noradle-cm`
