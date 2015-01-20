@@ -6,6 +6,9 @@
   "scripts" : {
     "test" : "echo \"Error: no test specified\" && exit 1"
   },
+  "bin" : {
+    "schema2file" : "./bin/schema2file"
+  },
   "repository" : {
     "type" : "git",
     "url" : "git://github.com/kaven276/noradle-cm.git"
