@@ -1,4 +1,5 @@
-  Manage oracle schema object for version control.
+  Manage oracle schema object for version control,
+file format is same as [PL/SQL Developer](http://www.allroundautomations.com/plsqldev.html) does.
 
   Depend on [noradle](https://github.com/kaven276/noradle) NDBC
 and for [noradle](https://github.com/kaven276/noradle)
