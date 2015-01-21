@@ -13,7 +13,7 @@ var Noradle = require('noradle')
   , useBom = cfg.use_bom
   , bomBuf = new Buffer('EFBBBF', 'hex')
   , fs = require('fs')
-  , debug = require('debug')('schema2file')
+  , debug = require('debug')('no-cm:schema2file')
   ;
 
 var dbPool = new Noradle.DBPool(dbPort, {
@@ -28,7 +28,7 @@ dbc.call('adm_export_schema_h.unit_list', {
   z$filter : '%'
 }, function(status, headers, units){
   if (status !== 200) {
-    console.log(units);
+    console.error(units);
     process.exit(status);
     return;
   }
