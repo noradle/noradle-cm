@@ -13,6 +13,7 @@ create or replace package body adm_export_schema_h is
 								from user_objects a
 							 where a.object_type in ('PACKAGE', 'PACKAGE BODY', 'FUNCTION', 'PROCEDURE')
 								 and a.object_name like v_filter
+								 and a.object_name not in ('DAD_AUTH_ENTRY')
 							 order by decode(a.object_type, 'PACKAGE', 1, 'FUNCTION', 2, 'PROCEDURE', 3, 'PACKAGE BODY', 4) asc,
 												a.object_name asc) loop
 			h.line(lower(a.object_name) || r.getc(a.object_type));
