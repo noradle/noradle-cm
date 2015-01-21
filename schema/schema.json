@@ -1,0 +1,10 @@
+{
+  "schema" : "noradle_cm",
+  "install_script" : {
+    "echo" : true,
+    "prompt_unit_name" : true
+  },
+  "use_bom" : false,
+  "ignore" : [
+  ]
+}
