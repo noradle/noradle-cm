@@ -1,0 +1,3 @@
+#!/usr/bin/env node
+
+require('noradle-cm/update_list.js')

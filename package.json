@@ -1,13 +1,14 @@
 {
   "name" : "noradle-cm",
-  "version" : "0.0.6",
+  "version" : "0.0.7",
   "description" : "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
   "main" : "download_units.js",
   "scripts" : {
     "test" : "echo \"Error: no test specified\" && exit 1"
   },
   "bin" : {
-    "schema2file" : "./bin/schema2file"
+    "schema2file" : "./bin/schema2file",
+    "schema_update" : "./bin/schema_update"
   },
   "repository" : {
     "type" : "git",

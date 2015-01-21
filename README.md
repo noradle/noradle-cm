@@ -20,7 +20,7 @@ then `schema2file` in ./bin will be installed into npm global executable path
 ## step 1
   In schema directory, create a *schema.json* file, content as below:
 
-```
+```JSON
 {
   "schema" : "message_proxy1",
   "install_script" : {
@@ -51,7 +51,7 @@ optionally add a *install.sql* script according to `schema.json` configuration.
 
 ### example export execution
 
-```
+```shell
 schema2file 7001
 
 write install.sql done
@@ -63,7 +63,7 @@ write k_smtp.spc done
 
 ### example export result
 
-```
+```shell
 cat install.sql
 
 set define off
@@ -89,5 +89,57 @@ prompt K_SMTP.bdy
 @@k_smtp.bdy
 
 ...
+
+```
+
+
+# get change list and make a update sqlplus script
+
+## VCS based
+
+example
+
+```shell
+git diff --stat head~5..head -- . | cut -d "|" -f 1 | grep -v "," | cut -d "/" -f 2
+```
+
+## update one db from another db
+
+  You may want to sync plsql stored procedures from test db to production db,
+you don't want all plsql units to "create or replace" on target db,
+because it's a big job, will spent lot of time, and the target db is continually serving.
+So you want only plsql units that is changed or different from source db to target db.
+You know the last time the target db changed a plsql procedure,
+so noradle-cm can connect to source db to fetch the change-after list,
+and make a update script called "update-yyyymmdd-yyyymmdd.sql".
+
+  *schema.json* will be reused to configure update script format.
+
+  Execute `schema_update port YYYYMMDD` to make a update script.
+
+### example export execution
+
+```shell
+schema_update 7001 20150121
+
+  no-cm:update_list write update_20150121_20150121.sql done +0ms
+```
+
+### example export result
+
+```shell
+cat update_20150121_20150121.sql
+
+set define off
+set echo on
+
+
+prompt
+prompt ADM_EXPORT_SCHEMA_H.spc
+@@adm_export_schema_h.spc
+
+prompt
+prompt ADM_EXPORT_SCHEMA_H.bdy
+@@adm_export_schema_h.bdy
 
 ```

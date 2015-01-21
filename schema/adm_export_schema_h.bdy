@@ -19,15 +19,20 @@ create or replace package body adm_export_schema_h is
 
 	procedure unit_list is
 		v_filter varchar2(100) := upper(r.getc('z$filter', '%'));
+		v_after  date := trunc(r.getd('after', sysdate - 20 * 365, 'yyyymmdd'));
 	begin
 		h.content_type(mime_type => 'text/items');
 		h.set_line_break(chr(30) || chr(10));
 		set_type2ext;
+		if not r.is_null('after') then
+			h.line(to_char(sysdate, 'YYYYMMDD'));
+		end if;
 		for a in (select a.*
 								from user_objects a
 							 where a.object_type in ('PACKAGE', 'PACKAGE BODY', 'FUNCTION', 'PROCEDURE')
 								 and a.object_name like v_filter
 								 and a.object_name not in ('DAD_AUTH_ENTRY')
+								 and a.last_ddl_time > v_after
 							 order by decode(a.object_type, 'PACKAGE', 1, 'FUNCTION', 2, 'PROCEDURE', 3, 'PACKAGE BODY', 4) asc,
 												a.object_name asc) loop
 			h.line(lower(a.object_name) || r.getc(a.object_type));
