@@ -1,14 +1,28 @@
 create or replace package body adm_export_schema_h is
 
+	-- private
+	procedure set_type2ext is
+	begin
+		r.setc('PACKAGE', '.spc');
+		r.setc('PACKAGE BODY', '.bdy');
+		r.setc('PROCEDURE', '.prc');
+		r.setc('FUNCTION', '.fnc');
+	end;
+
+	procedure set_ext2type is
+	begin
+		r.setc('spc', 'PACKAGE');
+		r.setc('bdy', 'PACKAGE BODY');
+		r.setc('prc', 'PROCEDURE');
+		r.setc('fnc', 'FUNCTION');
+	end;
+
 	procedure unit_list is
 		v_filter varchar2(100) := upper(r.getc('z$filter', '%'));
 	begin
 		h.content_type(mime_type => 'text/items');
 		h.set_line_break(chr(30) || chr(10));
-		r.setc('PACKAGE', '.spc');
-		r.setc('PACKAGE BODY', '.bdy');
-		r.setc('PROCEDURE', '.prc');
-		r.setc('FUNCTION', '.fnc');
+		set_type2ext;
 		for a in (select a.*
 								from user_objects a
 							 where a.object_type in ('PACKAGE', 'PACKAGE BODY', 'FUNCTION', 'PROCEDURE')
@@ -35,7 +49,9 @@ create or replace package body adm_export_schema_h is
 		h.set_line_break('');
 		h.write('create or replace ');
 		--h.set_line_break('');
-		select decode(v_ext, 'spc', 'PACKAGE', 'bdy', 'PACKAGE BODY') into v_type from dual;
+		set_ext2type;
+		v_type := r.getc(v_ext);
+	
 		select max(a.line)
 			into v_maxl
 			from user_source a
