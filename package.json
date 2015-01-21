@@ -2,7 +2,7 @@
   "name" : "noradle-cm",
   "version" : "0.0.7",
   "description" : "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
-  "main" : "download_units.js",
+  "main" : "",
   "scripts" : {
     "test" : "echo \"Error: no test specified\" && exit 1"
   },
