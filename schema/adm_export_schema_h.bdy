@@ -17,20 +17,6 @@ create or replace package body adm_export_schema_h is
 		end loop;
 	end;
 
-	procedure install_script is
-		v_file varchar2(100);
-	begin
-		h.content_type(mime_type => h.mime_text);
-		h.set_line_break(chr(10));
-		for a in (select a.*
-								from user_objects a
-							 where a.object_type in ('PACKAGE', 'PACKAGE BODY')
-							 order by a.object_type, a.object_name) loop
-			v_file := lower(a.object_name) || '.' || t.tf(a.object_type = 'PACKAGE', 'spc', 'bdy');
-			h.line('@' || v_file);
-		end loop;
-	end;
-
 	procedure download is
 		v_file varchar2(30);
 		v_ext  varchar2(9);
