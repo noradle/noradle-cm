@@ -42,34 +42,19 @@ create or replace package body adm_export_schema_h is
 	begin
 		t.half(replace(r.getc('unit'), '.', ','), v_file, v_ext);
 		h.content_type(mime_type => h.mime_text);
-		-- h.content_disposition_attachment(r.subpath);
 		if not r.is_null('BOM') then
 			h.use_bom('EF BB BF');
 		end if;
-		h.set_line_break('');
 		h.write('create or replace ');
-		--h.set_line_break('');
 		set_ext2type;
 		v_type := r.getc(v_ext);
 	
-		select max(a.line)
-			into v_maxl
-			from user_source a
-		 where a.name = upper(v_file)
-			 and a.type = v_type;
 		for a in (select a.line, a.text
 								from user_source a
 							 where a.name = upper(v_file)
 								 and a.type = v_type
-								 and a.line <= v_maxl
 							 order by a.line asc) loop
-		
-			if false and a.line > v_maxl - 4 and a.text like 'end ' || v_file || ';%' then
-				h.write(a.text || chr(13) || chr(10));
-				--exit;
-			else
-				h.write(substrb(a.text, 1, lengthb(a.text) - 1) || chr(13) || chr(10));
-			end if;
+			h.write(substrb(a.text, 1, lengthb(a.text) - 1) || chr(13) || chr(10));
 		end loop;
 		h.write('/' || chr(13) || chr(10));
 	end;
