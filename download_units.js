@@ -13,8 +13,9 @@ var Noradle = require('noradle')
   , useBom = cfg.use_bom
   , bomBuf = new Buffer('EFBBBF', 'hex')
   , fs = require('fs')
+  , debug = require('debug')('schema2file')
   ;
-console.log(outDir);
+
 var dbPool = new Noradle.DBPool(dbPort, {
   FreeConnTimeout : 60000
 });
@@ -44,7 +45,7 @@ dbc.call('adm_export_schema_h.unit_list', {
     });
     lines.push('');
     fs.writeFileSync(path.join(outDir, 'install.sql'), lines.join("\r\n"));
-    console.log('write', 'install.sql', 'done');
+    debug('write %s %s', 'install.sql', 'done');
   }
   var no = -1;
 
@@ -56,7 +57,6 @@ dbc.call('adm_export_schema_h.unit_list', {
     dbc.call('adm_export_schema_h.download', {
       unit : unit
     }, function(status, headers, text){
-      // console.log(text);
       if (useBom) {
         var bin = new Buffer('123' + text);
         bomBuf.copy(bin);
@@ -64,7 +64,7 @@ dbc.call('adm_export_schema_h.unit_list', {
       } else {
         fs.writeFileSync(path.join(outDir, unit), text);
       }
-      console.log('write', unit, 'done');
+      debug('write %s %s', unit, 'done');
       next();
     });
   }

@@ -1,6 +1,6 @@
 {
   "name" : "noradle-cm",
-  "version" : "0.0.4",
+  "version" : "0.0.5",
   "description" : "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
   "main" : "download_units.js",
   "scripts" : {
@@ -30,6 +30,7 @@
   },
   "homepage" : "https://github.com/kaven276/noradle-cm",
   "dependencies" : {
-    "noradle" : ">=0.10.2"
+    "noradle" : ">=0.10.2",
+    "debug" : "*"
   }
 }
