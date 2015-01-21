@@ -27,6 +27,11 @@ dbc.call('adm_export_schema_h.unit_list', {
   __parse : true,
   z$filter : '%'
 }, function(status, headers, units){
+  if (status !== 200) {
+    console.log(units);
+    process.exit(status);
+    return;
+  }
   if (cfg.install_script) {
     var echoSwitch = cfg.install_script.echo ? 'on' : 'off'
       , usePrompt = !!cfg.install_script.prompt_unit_name
