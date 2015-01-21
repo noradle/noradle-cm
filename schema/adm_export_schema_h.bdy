@@ -7,6 +7,8 @@ create or replace package body adm_export_schema_h is
 		h.set_line_break(chr(30) || chr(10));
 		r.setc('PACKAGE', '.spc');
 		r.setc('PACKAGE BODY', '.bdy');
+		r.setc('PROCEDURE', '.prc');
+		r.setc('FUNCTION', '.fnc');
 		for a in (select a.*
 								from user_objects a
 							 where a.object_type in ('PACKAGE', 'PACKAGE BODY', 'FUNCTION', 'PROCEDURE')
