@@ -8,9 +8,21 @@ app CM(configuration management)/VC(version control) purpuse.
 
 # install
 
+## install package in OS
+
 `npm -g install noradle-cm`
 
-then `schema2file` in ./bin will be installed into npm global executable path
+`schema2file` in `./bin` will be installed into npm global executable path
+
+## install support schema into target oracle database
+
+for example, execute in 'noradle-cm' directory
+
+`sqlplus "/ as sysdba" @create_user.sql`
+
+'create_user.sql' will create 'noradle_cm' schema user,
+and call install.sql to install support schema objects to the newly create db user.
+
 
 # Get plsql units of a particular oracle schema into a file system directory
 
