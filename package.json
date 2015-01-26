@@ -1,6 +1,6 @@
 {
   "name" : "noradle-cm",
-  "version" : "0.0.7",
+  "version" : "0.0.8",
   "description" : "noradle app software configuration management for oracle schema object like PL/SQL stored procedure",
   "main" : "",
   "scripts" : {
