@@ -38,6 +38,7 @@ then `schema2file` in ./bin will be installed into npm global executable path
 parameter explain
 
 * schema - export to which oracle schema
+* out_dir - default to current directory ".", specify where the plsql units export to, but install.sql is always in "."
 * install-script - if have, create a install script called *install.sql*
 * install_script.echo - default false, if set to true, will add *set echo on* to 'install.sql'
 * install_script.prompt_unit_name - if set to true, will prefix a line that give prompt which plsql unit will install
