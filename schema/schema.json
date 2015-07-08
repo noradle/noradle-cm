@@ -1,6 +1,7 @@
 {
   "schema" : "noradle_cm",
   "out_dir" : ".",
+  "filter" : "%",
   "install_script" : {
     "echo" : true,
     "prompt_unit_name" : true
