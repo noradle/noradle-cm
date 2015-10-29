@@ -22,10 +22,10 @@ create or replace package body adm_export_schema_h is
 		v_after  date := trunc(r.getd('after', sysdate - 20 * 365, 'yyyymmdd'));
 	begin
 		h.content_type(mime_type => 'text/items');
-		h.set_line_break(chr(30) || chr(10));
+		b.set_line_break(chr(30) || chr(10));
 		set_type2ext;
 		if not r.is_null('after') then
-			h.line(to_char(sysdate, 'YYYYMMDD'));
+			b.line(to_char(sysdate, 'YYYYMMDD'));
 		end if;
 		for a in (select a.*
 								from user_objects a
@@ -35,7 +35,7 @@ create or replace package body adm_export_schema_h is
 								 and a.last_ddl_time > v_after
 							 order by decode(a.object_type, 'PACKAGE', 1, 'FUNCTION', 2, 'PROCEDURE', 3, 'PACKAGE BODY', 4) asc,
 												a.object_name asc) loop
-			h.line(lower(a.object_name) || r.getc(a.object_type));
+			b.line(lower(a.object_name) || r.getc(a.object_type));
 		end loop;
 	end;
 
@@ -50,7 +50,7 @@ create or replace package body adm_export_schema_h is
 		if not r.is_null('BOM') then
 			h.use_bom('EF BB BF');
 		end if;
-		h.write('create or replace ');
+		b.write('create or replace ');
 		set_ext2type;
 		v_type := r.getc(v_ext);
 	
@@ -59,9 +59,9 @@ create or replace package body adm_export_schema_h is
 							 where a.name = upper(v_file)
 								 and a.type = v_type
 							 order by a.line asc) loop
-			h.write(substrb(a.text, 1, lengthb(a.text) - 1) || chr(13) || chr(10));
+			b.write(substrb(a.text, 1, lengthb(a.text) - 1) || chr(13) || chr(10));
 		end loop;
-		h.write('/' || chr(13) || chr(10));
+		b.write('/');
 	end;
 
 end adm_export_schema_h;
